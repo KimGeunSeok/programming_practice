@@ -1,0 +1,89 @@
+#include <iostream>
+
+int main()
+{
+    // 문자열
+    char str[] = "Hello World!"; // Hello World! + null로 byte를 하나 더 차지함. 
+    // /0 널(null)문자 : 문자열에서 끝을 구분하기 위해 표기함.
+    printf("%d\n", sizeof(str));
+
+    char nullChar = '\0';
+    char space = ' ';
+    
+    printf("%d %d", nullChar, space);
+
+    // 문자의 배열
+    char charArr[] = { 'a', 'b', 'c' };
+    // 문자열
+    char str2[] = {'a', 'b', 'c', '\0'};
+    printf("%s\n", charArr); // null 문자가 없어 끝을 못 찾아 문자가 깨짐 , %s = 문자를 하나씩 잡아서 출력.
+    printf("%s\n", str2);
+
+    int arr[] = { 5, 1, 6, 3, 4, 2, 7 };
+    int min = arr[0];
+    int max = arr[0];
+    int length = sizeof(arr) / sizeof(int);
+    
+    for (int i = 0; i < length; i++)
+    {
+        if (arr[i] < min)
+        {
+            min = arr[i];
+        }
+        if (arr[i] > max)
+        {
+            max = arr[i];
+        }
+    }
+    printf("min %d max %d\n", min, max );
+
+    // 오름 차순 정렬
+    // 선택(Selection Sort)
+    for (int i = 0; i < length; i++)
+    {
+        int minindex = i;
+        for (int j = i + 1; j < length; j++)
+        {
+            if (arr[j] < arr[minindex])
+            {
+                minindex = j;
+            }
+        }
+        int temp = arr[i];
+        arr[i] = arr[minindex];
+        arr[minindex] = temp;
+        }
+    // 버블(Bubble Sort)
+    for (int i = 0; i < length; i++)
+    {
+        for (int j = 0; j < (length - 1); j++)
+        {
+            if (arr[j] > arr[j + 1])
+            {
+                int temp = arr[j];
+                arr[j] = arr[i + j];
+                arr[j + 1] = temp;
+            }
+        }
+        printf("%d\t", arr[i]);
+    }
+
+        
+    // 내 풀이 실패....
+        for (int i = 0; i < length; i++) // 0 ~ 배열의 길이까지 순환한다.
+        {
+            int shift = arr[i];
+
+            for (int j = i; j < length; j++)
+            {
+                if (arr[j] < min)
+                {
+                    min = arr[j];
+                    shift = arr[j];
+                }
+            }
+            arr[i] = min;
+            printf("%d\t", arr[i]);
+        }
+}
+
