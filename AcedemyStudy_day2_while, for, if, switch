@@ -1,0 +1,130 @@
+#include <iostream>
+
+int main()
+{
+    int a = 10;
+    int b = 20;
+
+    printf("스왑 전 : %d %d\n", a, b);
+
+    int temp = a; //temp는 예시용, 변수로 쓰지 말자
+    a = b;
+    b = temp;
+    printf("스왑 후 : %d %d\n", a, b);
+
+    // > < ==  
+    // == !=
+    // && ||
+    a >= b; // 기본적으로 a가 b보다 xx하게 코드를 짜라
+
+    // 반복문
+    int condition = 5;
+    while (condition > 0)
+    {
+        printf("%d\n", condition);
+        condition--;
+    }
+    
+    for (int i = 2; i <= 9; i++)
+    {
+        printf("%d단\n", i);
+        for (int j = 1; j <= 9; j++)
+        {
+            printf("%d * %d = %d\n", i, j, i*j);
+        }
+    }
+    // 오류가 날 수 있는 코드 사용 하지 말 것.
+    //for (size_t i = 100000; i >=0; i--)
+    //{
+    //    printf("%u\n", i); // %d는 모든 정수를 출력, %u는 0과 양수만 출력 
+    //}
+
+    // 조건문
+    int num1 = 1;
+    int num2 = 2;
+    bool notEqual = num1 != num2;
+    if (num1 > 1)
+    {
+        printf("num1 > num2 \n");
+    }
+    else  if (num1 < num2)
+    { 
+        printf("num1 < num2 \n");
+    }
+    else
+    {
+        printf("num1 == num2 \n");
+    }
+
+    printf("54번째 줄 \n");
+    
+    int num3 = 3;
+    bool isEvenNumber = num3 % 2 == 0;
+    if (isEvenNumber)
+    {
+        printf("짝수\n");
+    }
+    else
+    {
+        printf("홀수\n");
+    }
+
+    // 삼항연산자
+    // (조건) ? A : B
+    int num4 = -100;
+    int absolute = num4 > 0 ? num4 : -num4;
+    printf("%d\n", absolute);
+
+    for (int i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            if (j > 5)
+            {
+                break; //break는 조건문이 아닌 break에게 가장 가까운 반복문을 나가는 함수 
+            }
+            printf("%d\n", j);
+        }
+        if (i % 2 == 1)
+        {
+            continue; //반복문 한 번 스킵
+        }
+        printf("%d\n", i);
+    }
+    printf("나왔다!\n");
+
+    int num5 = 1;
+    switch (num5) // 조건문에 else가 많아질 경우, 사용하기 좋음
+    {
+        case 1:
+            printf("1\n");
+            break;
+        case 2:
+            printf("2\n");
+            break;
+        case 3:
+            printf("3\n");
+            break;
+        case 4:
+            printf("4\n");
+            break;
+        default:
+            printf("기타\n");
+            break;
+    }
+    int num5 = 1; // int, char 둘 다 가능(조건은 맞춰야 함)
+    switch (num5) // 조건문에 else가 많아질 경우, 사용하기 좋음
+    {
+    case 1:
+    case 3:
+        printf("홀수\n");
+        break;
+    case 2:
+    case 4:   
+        printf("짝수\n");
+        break;
+    default:
+        printf("기타\n");
+        break;
+    }
+}
