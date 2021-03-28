@@ -1,0 +1,107 @@
+#include <iostream>
+
+int main() // main안에 모든 코드가 들어가야 된다.
+{
+	// 주석(commenet) : 이 부분은 실행되지 않는다.
+
+	// 변수 선언
+	// 타입 이름
+	int num1;
+	// 대입
+	num1 = 1;
+	// 같다X
+	num1 = num1 + 1;
+
+	int num2 = 3;
+	num1 = num2;
+
+	// 변수의 종류(자료형, type)
+	// 정수형(integer)
+
+	// 실수형
+	// 부동소수점 <-> 고정소수점 요즘은 다 부동소수점 사용
+	// 뒤에 f를 붙여야 된다.
+	float realNumber = 1.1f;  // f를 떼도 되나 기본적으로 붙임
+
+	// float은 연산이 누적되면 오차가 발생할 수도 있다. 이를 해결하기 위해 -error를 넣거나 Nearlyequal후 숫자를 선언한다.
+	// ==(동등비교) 될 수도 안 될 수도..
+
+
+	// 자료형의 변환(C스타일 형변환, casting)
+	int decimal = (int)realNumber;
+	// C 표준 출력
+	printf("%d\n", decimal);  //printforamt의 줄임형, \: escape 글자로부터 탈출시킴 \n : 줄바꿈(자체도 글자로 취급)
+
+	//연산자(operator), 피연산자(oprand)
+	// +-*/ 우선순위
+	// ()
+	// %(modulo, 나머지 연산) 실수에 경우?
+
+	int hp = 0;
+	// Not a Number
+	// int NaN = 1 / hp;
+
+	int num3 = 1;
+	printf("%d\n", num3);
+	num3 = num3 + 1;
+	num3 += 1;
+	++num3; // 전위증가
+	printf("%d\n", ++num3);
+	num3++; // 후위증가
+	printf("%d\n", num3++);
+	printf("%d\n", num3);
+
+	//추후 배울 문자셋
+	//SBCS SingleByte CS 아스키코드 1byte
+	//MBCS MuilteByte CS 1~2byte
+	//WBCS WideByte CS 유니코드 2byte
+
+	char a = 'a';
+	printf("%c\n", a);
+	// 문자셋(character set) - 문자표현을 위한 약속?
+	// 아스키코드(ASCII code)
+	char b = 98;
+	printf("%c\n", b);
+
+	bool boolean = false;
+	bool plus = 1 > 0;
+	printf("%d\n", plus);
+	printf("int의 실제 바이트 단위 크기는? : %d\n", sizeof(int)); // sizeof : 연산자
+
+	// 비트 연산
+	int layer = 0b1000;
+	int mask1 = 0b0100; // 값 자체가 중요한게 아닌 서로가 on/off 인지 체크용
+	int mask2 = 0b1000; // 8
+	// int mask = 7; // 10000000 7이 아닌 7번째 불이 들어왔다는 뜻 
+	int mask3 = mask1 | mask2; //1100
+	bool hit = (layer & mask1) > 0;
+	printf("%d\n", hit);
+	// & 비트AND (곱, 비트 마스킹)
+	printf("%d\n", layer & mask1);
+	// | 비트OR (더하기, 비트 합성)
+	printf("%d\n", layer | mask1);
+	// ~ 비트NOT	
+	//   비트XOR 둘이 달라야 1, 같으면 0
+	int key1 = 1;
+	int key2 = 2;
+	int encryption = 1 ^ (key1 ^ key2); // 암호화 - > 복구화가 전제 
+	int decryption = encryption ^ (key1 ^ key2); // 같은 값을 때리면 복구
+	// << 비트 시프트
+	int mask4 = 0b0001 << 3; // 해당 비트를 3칸 밀어낸다, 주로 오른쪽으로 민다.
+	printf("%d\n", mask4);
+
+	// 2의 제곱인지 판단하는 법
+	int num = 4;
+	bool isPowerOfTwo = (num & (num - 1)) == 0; // 2의 제곱인 수는 1000...., 2의 제곱 -1 01111....
+	printf("%d\n", isPowerOfTwo);
+
+	// 변수 <-> 상수(constant)
+	// 리터럴(literal) 상수 : 이름 없는 상수, 태어날 때부터 상수
+	int num = 1;
+	int sum = 1 + 2;
+
+	// 심볼릭(symbolic) 상수
+	// 상수는 선언과 동시에 초기회 해야 한다.
+	const float PI = 3.14f; // 이름 있는 상수 const 선언 시, 그 변수가 상수로 고정됨. 수정 불가, 코드의 안정성을 올림.
+	// PI = 3.0f; 오류로 출력됨, 판단하기 좋은 오류
+}
