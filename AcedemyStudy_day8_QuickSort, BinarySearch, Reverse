@@ -1,0 +1,159 @@
+#include <iostream>
+
+const int ARRAY_SIZE = 7;
+int quick[ARRAY_SIZE] = { 5, 1, 6, 3, 4, 2, 7 };
+void Swap(int* ptr1, int* ptr2)
+{
+	int temp = *ptr1;
+	*ptr1 = *ptr2;
+	*ptr2 = temp;
+}
+void Swap1(char* ptr1, char* ptr2)
+{
+	int temp = *ptr1;
+	*ptr1 = *ptr2;
+	*ptr2 = temp;
+}
+
+
+ // 퀵 소트(Quick Sort)
+// n log n
+void QuickSort(int low, int high)
+{
+	if (low >= high)
+		return;
+
+	//중위값
+	int pivot = quick[(low + high) / 2];
+	int left = low;
+	int right = high;
+
+	while (left <= right)
+	{
+		while (quick[left] < pivot)
+		{
+			left++;
+		}
+		while (quick[right] > pivot)
+		{
+			right--;
+		}
+
+		if (left <= right)
+		{
+			// 스왑
+			Swap(&quick[left], &quick[right]);
+			left++;
+			right--;
+
+		}
+	}
+	// 왼쪽 파티션 퀵정렬
+	QuickSort(low, right);
+	// 오른쪽 파티션 퀵정렬
+	QuickSort(left, high);
+}
+int BinarySearchRecursive(int x, int low, int high, int arr[])
+	{
+		if (low > high)
+			return -1;
+
+		int mid = (low + high) / 2;
+
+		// 1.왼쪽 구간
+		// x < mid
+		// low ~ mid - 1
+		// 재귀호출
+			if (x < arr[mid])
+			{
+				return BinarySearchRecursive(x, low, mid - 1, arr);
+			}
+		// 2. 오른쪽 구간
+		// x > mid
+		// mid + 1 ~ high
+		// 재귀호출
+			else if (arr[mid] < x)
+				{
+					return BinarySearchRecursive(x, mid + 1, high, arr);
+				}
+		// 3.mid
+			else
+			{
+				return mid;
+			}
+		// 탐색 실패
+			return - 1;
+	}
+
+int BinarySearch(int x, int arr[], int arrSize)
+	{
+		int low = 0;
+		int high = arrSize - 1;
+		int mid;
+
+		while (low <= high)
+		{
+			mid = (low + high) / 2;
+			//왼쪽
+			if (x < arr[mid])
+			{
+				high = mid - 1;
+			}
+			// 오른쪽
+			else if (arr[mid] < x)
+			{
+				low = mid + 1;
+			}
+			else
+			{
+				return mid;
+			}
+		}
+	}
+
+void Reverse(char* str)
+{
+	int low = 0;
+	int high = 0;
+
+	while (str[high] != '\0')
+	{
+		high++;
+	}
+	while (low <= high - 1)
+	{
+		Swap1(&str[low], &str[high - 1]);
+		low++;
+		high--;
+	}
+}
+
+int main()
+{
+	QuickSort(0, ARRAY_SIZE - 1);
+	
+	for (int i = 0; i < ARRAY_SIZE; i++)
+	{
+		printf("%d\t", quick[i]);
+	}
+
+	int arr[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+	printf("%d\n",BinarySearch(9, arr, 10));
+	printf("%d\n", BinarySearchRecursive(9, 0, 9, arr));
+
+	// 문자열 변수
+	char str1[] = "Hello";
+	char str2[] = "World";
+	str1[0]; 'h';
+	// str1 = str2; 오류출력, 변수안의 개별 값 변경은 가능하나, 값 자차에 변경은 불가능
+	printf("%s\n", str1);
+
+	// 문자열 상수
+	const char* str3 = "hello";
+	str3 = "Hi";
+	//str[0] = 'h'; 오류출력 const를 넣을 경우 변수값 변경은 가능하나, 개별 변경 불가능
+
+	char str[] = "15748";
+	Reverse(str);
+	printf("%s\n", str);
+}
