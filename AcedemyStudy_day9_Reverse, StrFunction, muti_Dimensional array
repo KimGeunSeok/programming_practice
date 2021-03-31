@@ -1,0 +1,123 @@
+#include <iostream>
+// 널문자로 끝나는 문자열 뒤집기
+void Reverse(char* str)
+{
+	char temp;
+	char* end = str;
+	if (str)
+	{
+		while (*end)
+		{
+			end++;
+		}
+		end--;
+	}
+	while (str < end)
+	{
+		temp = *str;
+		*str++ = *end;
+		*end-- = temp;
+	}
+}
+int main()
+{
+	char str[] = "15748";
+	Reverse(str);
+	printf("s\n", str);
+
+	// 문자열 길이
+	char str3[] = "Hello";
+	printf("%d\n", strlen(str3));
+
+	// 문자열 복사
+	char strSrc[] = "Hello";
+	char strDest[6]; // 길이가 짧으면 안 됨.
+	strcpy_s(strDest, strSrc);
+	printf("%s\n", strDest);
+
+	// 문자열 비교
+	char str1[] = "Hello";
+	char str2[] = "World";
+	if (str1 == str2)
+	{
+
+	}
+	else
+	{
+		printf("문자열 다름\n"); // 주소값을 호출하기 때문에 서로 같을 수가 없다 비교가 안 됨.
+	}
+	int result = strcmp(str1, str2);
+	// < 0 : str1 < str2
+	// > 0 : str1 > str2
+	// == 0 : 같다
+	printf("%d\n", result);
+
+	// 문자열 붙이기
+	char strDes[30] = "Hello";
+	printf("%d\n", sizeof(strDes) / sizeof(char));
+	printf("%d\n", strlen(strDes));
+	char strAdd[6] = "World";
+	// concatenate
+	strcat_s(strDes, strAdd);
+	printf("%s\n", strDes);
+
+	// 문자열에서 문자 찾기
+	int c = 'W';
+	char strr[] = "Hello World";
+	// 찾은 위치를 포인터로 돌려줌
+	char* dest = strchr(strr, c);
+	int result2 = dest - strr;
+	printf("%d\n", result2);
+
+	// 문자열에서 문자 찾기(Substring)
+	char strr2[] = "Hello World";
+	char subStr[] = "Wo";
+	char* dest2 = strstr(strr2, subStr);
+	printf("%d\n", dest2);
+
+	// 다차원 배열
+	// 세로길이 가로길이
+	// y = 행(row) x = 열(column)
+	const int ROW = 2;
+	const int COLUMN = 3;
+	int arr[ROW][COLUMN] = { { 1, 2, 3}, { 4, 5, 6} }; // == { 1, 2, 3,  4, 5, 6}
+	arr[0][0]; arr[0][1]; arr[0][2];
+	arr[1][0]; arr[1][1]; arr[1][2];
+	// 인덱스 계산
+	// y = 1, x = 2 <-> y = i / column x = i % column
+
+	// 2차원 배열 시계 방향으로 90도 회전시키지
+	const int DIMENSION = 4;
+	int rots[DIMENSION][DIMENSION] =
+	{
+		{ 1, 2, 3, 4},
+		{ 5, 6, 7, 8},
+		{ 9, 10, 11, 12},
+		{ 13, 14, 15, 16},
+	};
+
+	int results[DIMENSION][DIMENSION] =
+	{
+		{ 1, 2, 3, 4},
+		{ 5, 6, 7, 8},
+		{ 9, 10, 11, 12},
+		{ 13, 14, 15, 16},
+	};
+
+	for (int i = 0; i < DIMENSION; i++)
+	{
+		for (int j = 0; j < DIMENSION; j++)
+		{
+			results[j][DIMENSION - 1 - i] = rots[i][j];
+		}
+	}
+
+
+	for (int i = 0; i < DIMENSION; i++)
+	{
+		for (int j = 0; j < DIMENSION; j++)
+		{
+			printf("%d,", results[i][j]);
+		}
+	}
+}
