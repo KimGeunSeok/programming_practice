@@ -1,0 +1,104 @@
+#include <iostream>
+
+enum class EColors : unsigned char //  enum 변수별로 0 ~ 식으로 정수가 선언됨, 따로 선언도 가능, 옛날 방식
+{
+	Red, Green, Blue
+};
+
+enum class EStates : unsigned char
+{
+	Idle, Attack, Die, Jump, Run, JumpAttack, Max
+};
+
+const int STACK_SIZE = 5;
+int stack[STACK_SIZE];
+// 초기화
+int top = -1;
+
+bool IsFull()
+{
+	return top == STACK_SIZE - 1;
+}
+
+void Push(int data)
+{
+	// 포화 상태 체크
+	if(IsFull())
+	{
+		printf("스택 포화 상태\n");
+		return;
+	}
+	stack[++top] = data;
+}
+
+bool IsEmpty()
+{
+	return top == -1;
+}
+
+int Pop()
+{
+	if (IsEmpty())
+	{
+		printf("스택 공백 상태\n");
+		return -1;
+	}
+	// 공백 상태 체크
+	return stack[top--];
+}
+
+void Print()
+{
+	for (int i = 0; i <= top; i++)
+	{
+		if (i == top)
+		{
+			printf("top:");
+		}
+		printf("%d\t", stack[i]);
+	}
+}
+
+// 가급적 bool 변수 기반의 코드 x -> enum class 기반의 '상태' 기반 코드
+
+int main()
+{
+	//EStates state = EStates::Idle;
+	//switch (state)  // switch 치고 tab, class 선언하고 tab하면 편함, 하나의 상태만 고를때 쓰기 좋음
+	//{
+	//case EStates::Idle:
+	//	break;
+	//case EStates::Attack:
+	//	break;
+	//case EStates::Die:
+	//	break;
+	//case EStates::Jump:
+	//	break;
+	//case EStates::Run:
+	//	break;
+	//default:
+	//	break;
+	// }
+	
+	// EStates::Max; denum class의 길이 구하는 법
+	
+	// 스택(Stack)
+
+	Push(10);
+	Push(20);
+	Push(30);
+	Push(40);
+	Push(50);
+	Push(60);
+	Print();
+	printf("==========================\n");
+	printf("%d\n", Pop());
+	printf("%d\n", Pop());
+	printf("%d\n", Pop());
+	printf("%d\n", Pop());
+	printf("%d\n", Pop());
+	printf("%d\n", Pop());
+	printf("==========================\n");
+
+
+}
