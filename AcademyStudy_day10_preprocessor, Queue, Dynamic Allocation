@@ -1,0 +1,117 @@
+// 전처리(preprocessor)
+// 전처리 명령문대로 소스코드를 일부 수정
+// 대부분의 수정은 단순 치환(substitution)
+
+// 전처리기 명령문은 #으로 시작
+// 컴파일러가 처리하는 문장이 아니므로 ;를 붙이지 않는다.
+// # 지시자 매크로 매크로몸체 장점 자료형에 영향을 안 받는다(?), 스택할당을 안 해서 최적화에 좋다
+// 단점 디버깅이 안 된다.밑에 문제들 참조
+#define PI 3.141592f // 매크로 상수 fdf
+// 매크로 정의할 때 전달인자를 ()로 감싸자
+#define SQUARE(X)\
+((X) * (X)) // 매크로 함수 여러줄로 하고 싶을땐 '\'
+
+// 아래 서술한 문제로 매크로는 지양
+// 상수는 const, 함수는 inline
+
+#include <iostream>
+// ex)2개의 스택을 이용해서 큐를 구현해보시오.
+const int QUEUE_SIZE = 5;
+int queue[QUEUE_SIZE];
+int front = 0;
+int rear = 0;
+
+bool IsEmpty();
+bool IsFull();
+void Enqueue(int data);
+int Dequeue();
+
+
+char* ReadString()
+{
+	char str[] = "Hello World";
+	return str;
+}
+
+char str[30];
+//char* CopyString(const char* instr)
+//{
+//	strcpy_s(str, instr);
+//	return str;
+//}
+
+char* CopyString(const char* instr)
+{
+	char* str = new char[30];
+	strcpy_s(str, 30, instr);
+	return str;
+}
+
+int main()
+{
+	float pi = PI;
+	
+	int num1 = SQUARE(2); // 2 * 2
+	int num2 = SQUARE(num1); // num1 * num1
+	int num3 = SQUARE(1 + 2); // 1 + 2  * 1 + 2 전처리명령어 사용 시 주의!
+
+	int num4 = 9 / SQUARE(3); // 9 / (3) * (3) 사용 시 주의
+
+	int num5 = 1;
+	printf("%d\n", SQUARE(++num5)); // ++num5 * ++num5 -> 9 사용 시 주의
+
+	char* str = ReadString();
+	printf("%s\n", str); // 함수안에 str은 지역변수라 소멸하기에 이렇게 선언 시, 이상한 문자를 출력한다.
+	
+	char* str1 = CopyString("Hello");
+	printf("%s\n", str1);
+	char* str2 = CopyString("World");
+	printf("%s\n", str2);
+
+	printf("%s\n", str1);
+	printf("%s\n", str2);
+
+	delete str1;
+	delete str2; 
+
+
+    // 동적 할당(Dynamic Allocation)
+	int* ptr1 = new int; // new int 가 본체, 힙에 남음 무조건 포인터 형태
+	if (ptr1)
+	{
+		printf("new\n");
+		delete ptr1;
+		ptr1 = nullptr;
+	}
+
+	int* pArr = new int[10];
+	delete[] pArr;
+}
+
+bool IsEmpty()
+{
+	return front == rear;
+}
+
+bool IsFull()
+{
+		return front == (rear + 1) % QUEUE_SIZE;
+}
+
+void Enqueue(int data)
+{
+	if (IsFull())
+		return;
+
+	rear = (rear + 1) % QUEUE_SIZE;
+	queue[rear] = data;
+}
+
+int Dequeue()
+{
+	if (IsEmpty())
+		return -1;
+
+	front = (rear + 1) % QUEUE_SIZE;
+	return queue[front];
+}
